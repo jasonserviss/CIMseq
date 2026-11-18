@@ -320,7 +320,7 @@ setMethod("plotUnsupervisedMarkers", c("CIMseqSinglets", "CIMseqMultiplets"), fu
       theme_few() +
       theme(legend.position = "top") +
       geom_point(colour = "black", shape = 21) +
-      geom_point(aes(colour = 'Colour'), alpha = 0.75) +
+      geom_point(aes(colour = 'Colour'), alpha = 0.75, show.legend = TRUE) +
       scale_colour_identity(
         "Markers", labels = names(pal), breaks = pal,
         guide = "legend", drop = FALSE
