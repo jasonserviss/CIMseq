@@ -35,7 +35,7 @@ setGeneric("plotData", function(
 setMethod("plotData", "gg", function(
   plot, ...
 ){
-  as_tibble(plot[[1]])
+  as_tibble(plot[1])
 })
 
 #' @rdname plotData
