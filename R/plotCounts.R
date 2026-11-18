@@ -109,12 +109,12 @@ setMethod("plotCountsERCC", c("CIMseqSinglets", "CIMseqMultiplets"), function(
   singlets, multiplets, ...
 ){
   plotCountsData(singlets, multiplets) %>%
-    ggplot(aes(x = "Sample type", y = "Estimated cell number")) +
+    ggplot(aes(x = .data[["Sample type"]], y = .data[["Estimated cell number"]])) +
     geom_jitter(height = 0, width = 0.25, shape = 16, alpha = 0.75) +
     scale_y_continuous(
       expand = c(0, 0),
       sec.axis = sec_axis(
-        trans = ~ convertToERCC(., singlets, multiplets),
+        transform = ~ convertToERCC(., singlets, multiplets),
         name = "% ERCC"
       )
     ) +
