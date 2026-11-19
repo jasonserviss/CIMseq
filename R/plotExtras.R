@@ -32,11 +32,20 @@ setGeneric("plotData", function(
 #' @export
 #' @importFrom tibble as_tibble
 
-setMethod("plotData", "gg", function(
-  plot, ...
+# setMethod("plotData", "gg", function(
+#   plot, ...
+# ){
+#   as_tibble(plot[1])
+# })
+
+#google: setmethod s4 generic for a s7 ggplot2 object in package
+S7::S4_register(ggplot2::class_ggplot)
+S7::method(plotData, ggplot2::class_ggplot) <- function(
+    plot, ...
 ){
-  as_tibble(plot[1])
-})
+  as_tibble(plot$data)
+}
+
 
 #' @rdname plotData
 #' @export
