@@ -55,33 +55,40 @@ setMethod(
     getData(singlets, "classification")
   )
   p <- calculateEdgeStats(swarm, singlets, multiplets) %>%
-    unite('connection', .data$from, .data$to, sep = "-", remove = FALSE) %>%
-    select(.data$from, .data$to, .data$connection, .data$weight, .data$pval) %>%
+    unite(
+      'connection', .data[["from"]], .data[["to"]], sep = "-", remove = FALSE
+    ) %>%
+    select(
+      .data[["from"]], .data[["to"]], .data[["connection"]], 
+      .data[["weight"]], .data[["pval"]]
+    ) %>%
     graph_from_data_frame(directed = FALSE) %>%
     as_tbl_graph() %>% #better if this could be done directly; avoids importing igraph
     activate(nodes) %>%
-    rename('Class' = .data$name) %>%
+    rename('Class' = .data[["name"]]) %>%
     #remove edges with 0 weight
     activate(edges) %>%
-    filter(.data$weight > 0) %>%
+    filter(.data[["weight"]] > 0) %>%
     #plot base plot with custom layout according to tsne
     ggraph(layout = tsneMeans) +
     #plot edges
     geom_edge_link(
-      edge_colour = "black", aes_string(edge_width = 'weight'), 
+      edge_colour = "black", aes(edge_width = .data[['weight']]), 
       edge_alpha = 0.3, lineend = "round"
     ) +
     # add all cells
     geom_node_point(
       data = tidySinglets(singlets),
-      aes_string(
-        x = '`dim.red dim 1`', y = '`dim.red dim 2`', colour = 'classification'
+      aes(
+        x = .data$`dim.red dim 1`, 
+        y = .data$`dim.red dim 2`, 
+        colour = .data$classification
       ),
       alpha = 0.3
     ) +
     #add mean point for each class
     geom_node_point(
-      data = tsneMeans, aes_string(colour = 'classification'), size = 5
+      data = tsneMeans, aes(colour = .data[['classification']]), size = 5
     ) +
     #change the color scale
     scale_colour_manual(name = "classification", values = col40()) +
@@ -508,13 +515,13 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
       as_tibble() %>%
       gather(sample, count, -gene) %>%
       inner_join(synthetic, by = c("sample", "gene")) %>%
-      nest(syntheticMultipletID, syntheticValues, .key = "syntheticData")
+      nest(syntheticData = c(syntheticMultipletID, syntheticValues))
   } else {
     data <- cpm[rownames(cpm) %in% genes, multipletsToPlot] %>%
       matrix_to_tibble("gene") %>%
       gather(sample, count, -gene) %>%
       inner_join(synthetic, by = c("sample", "gene")) %>%
-      nest(syntheticMultipletID, syntheticValues, .key = "syntheticData")
+      nest(syntheticData = c(syntheticMultipletID, syntheticValues))
   }
   
   
@@ -532,7 +539,7 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
   max.cost <- max(entireCost$cost)
   
   p <- data %>%
-    unnest() %>%
+    unnest(cols = "syntheticData") %>%
     #plot
     ggplot() +
     #synthetic multiplet values
@@ -540,7 +547,8 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
     facet_grid(gene ~ sample, scales = "free") +
     #this just facilitates the histogram legend
     geom_line(
-      aes(x = 0, y = 0, linetype = "Synthetic multiplet values  ")
+      data = data.frame(x = c(0, 0), y = c(0, 0)),
+      aes(x, y, linetype = "Synthetic multiplet values  ")
     ) +
     #poisson distribution of individual synthetic multiplets
     geom_line(
@@ -607,13 +615,13 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
   m <- max(map_dbl(data$syntheticData, function(x) max(x$syntheticValues)))
   
   data %>%
-    unnest() %>%
+    unnest(cols = "syntheticData") %>%
     mutate(pos = list(seq(-10, m + 200, freq))) %>%
-    unnest() %>%
+    unnest(cols = "pos") %>%
     mutate(ind.pois = map2(syntheticValues, pos, function(sv, p) {
       dpois(round(p), round(sv))
     })) %>%
-    unnest() %>%
+    unnest(cols = "ind.pois") %>%
     group_by(sample, gene) %>%
     mutate(ind.dpois.norm = case_when(
       all(ind.pois == 0) ~ ind.pois,
@@ -645,12 +653,12 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
   m <- max(map_dbl(data$syntheticData, function(x) max(x$syntheticValues)))
   
   data %>%
-    unnest() %>%
+    unnest(cols = "syntheticData") %>%
     mutate(dpois.x = list(round(seq(0, m + 200, freq)))) %>%
-    unnest() %>%
+    unnest(cols = "dpois.x") %>%
     mutate(dpois = dpois(dpois.x, round(syntheticValues))) %>%
     group_by(gene, sample, dpois.x) %>%
-    summarize(mean = mean(dpois)) %>%
+    summarize(mean = mean(dpois), .groups = "drop_last") %>%
     mutate(mean.log = log10(mean)) %>%
     mutate(cost = if_else(is.infinite(mean.log), 323.005, mean.log * (-1))) %>%
     ungroup() %>%
