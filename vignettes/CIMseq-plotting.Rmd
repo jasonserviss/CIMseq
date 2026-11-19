@@ -42,12 +42,12 @@ Get the plotting data so you can make a custom plot.
 ```{r, fig.align="center", fig.width=10, fig.height=8}
 plotCountsMarkers(
   CIMseqSinglets_test, CIMseqMultiplets_test, markers = c("CD74", "ANXA3")
-) %>%
-  plotData() %>%
+) |>
+  plotData() |>
   head()
 
-plotCountsERCC(CIMseqSinglets_test, CIMseqMultiplets_test) %>%
-  plotData() %>%
+plotCountsERCC(CIMseqSinglets_test, CIMseqMultiplets_test) |>
+  plotData() |>
   head()
 ```
 
@@ -75,14 +75,19 @@ Plot mean of multiple markers for the same cell type.
 plotUnsupervisedMarkers(
   CIMseqSinglets_test, CIMseqMultiplets_test, 
   markers = c("CD74", "HLA-DRA", "IL13RA2", "MAGEA4")
-) %>%
-  plotData() %>%
-  gather(gene, value, -Sample, -(`Sample type`:Colour)) %>%
-  group_by(Sample) %>%
-  mutate(`Mean(markers)` = mean(value)) %>%
-  ungroup() %>%
-  select(`dim.red dim 1`, `dim.red dim 2`, `Mean(markers)`) %>%
-  distinct() %>%
+) |>
+  plotData() |>
+  pivot_longer(
+    cols = !c(Sample, `Sample type`:Colour), 
+    names_to = "gene", 
+    values_to = "value"
+  ) |>
+  #gather(gene, value, -Sample, -(`Sample type`:Colour)) |>
+  group_by(Sample) |>
+  mutate(`Mean(markers)` = mean(value)) |>
+  ungroup() |>
+  select(`dim.red dim 1`, `dim.red dim 2`, `Mean(markers)`) |>
+  distinct() |>
   ggplot() +
   geom_point(aes(`dim.red dim 1`, `dim.red dim 2`, colour = `Mean(markers)`)) +
   viridis::scale_colour_viridis(option = "E") +
@@ -94,15 +99,15 @@ plotUnsupervisedMarkers(
 Get the plotting data so you can make a custom plot.
 
 ```{r}
-plotUnsupervisedClass(CIMseqSinglets_test, CIMseqMultiplets_test) %>% 
-  plotData() %>%
+plotUnsupervisedClass(CIMseqSinglets_test, CIMseqMultiplets_test) |> 
+  plotData() |>
   head()
 
 plotUnsupervisedMarkers(
   CIMseqSinglets_test, CIMseqMultiplets_test, 
   markers = c("CD74", "ANXA3", "ACTG2")
-) %>% 
-  plotData %>%
+) |> 
+  plotData() |>
   head()
 ```
 
@@ -122,7 +127,7 @@ plotSwarmCircos(
 
 Get data to make a custom plot.
 ```{r}
-plotSwarmGraph(CIMseqSwarm_test, CIMseqSinglets_test, CIMseqMultiplets_test) %>%
+plotSwarmGraph(CIMseqSwarm_test, CIMseqSinglets_test, CIMseqMultiplets_test) |>
  plotData()
 ```
 
