@@ -63,7 +63,8 @@ setMethod("plotData", "data.frame", function(
 setMethod("plotData", "ggraph", function(
   plot, ...
 ){
-  attr(plot[[1]], "graph")
+  #attr(plot[[1]], "graph")
+  plot$data
 })
 
 #' convertToERCC
