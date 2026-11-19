@@ -500,7 +500,7 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
     filter(gene %in% genes) %>%
     gather(syntheticMultipletID, syntheticValues, -gene) %>%
     mutate(syntheticMultipletID = str_replace(
-      syntheticMultipletID, ".(.*)", "\\1"
+      syntheticMultipletID, "...(.*)", "\\1"
     )) %>%
     add_column(sample = m)
   }) %>%
@@ -558,7 +558,7 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
         group = interaction(gene, sample, syntheticValues),
         linetype = "Distribution  "
       ),
-      size = 0.1, colour = "lightgrey"
+      linewidth = 0.1, colour = "lightgrey"
     ) +
     #costs
     geom_line(
@@ -573,7 +573,7 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
         x = count, xend = count, y = 0, yend = 1.05,
         linetype = "Real multiplet values  "
       ),
-      size = 0.5, colour = "red"
+      linewidth = 0.5, colour = "red"
     ) +
     #adds mean cost
     geom_text(
