@@ -226,8 +226,8 @@ setMethod("plotUnsupervisedClass", "CIMseqSinglets", function(
   
   plotCountsData(singlets, multiplets) %>%
     filter(`Sample type` == "Singlet") %>%
-    ggplot(aes(x = 'dim.red dim 1', y = 'dim.red dim 2')) +
-    geom_point(aes(colour = 'Classification'), alpha = 0.75, shape = 16) +
+    ggplot(aes(x = .data[['dim.red dim 1']], y = .data[['dim.red dim 2']])) +
+    geom_point(aes(colour = .data[['Classification']]), alpha = 0.75, shape = 16) +
     scale_colour_manual(values = classColours) +
     theme_few() +
     theme(legend.position = "top") +
@@ -302,12 +302,12 @@ setMethod("plotUnsupervisedMarkers", c("CIMseqSinglets", "CIMseqMultiplets"), fu
   pal <- pal[order(names(pal))]
   
   if(length(markers) == 1) {
-    p <- plotCountsData(singlets, multiplets, markers, log, normalize) %>%
-      filter(`Sample type` == "Singlet") %>%
+    p <- plotCountsData(singlets, multiplets, markers, log, normalize) |>
+      filter(`Sample type` == "Singlet") |>
       ggplot(aes(x = .data[['dim.red dim 1']], y = .data[['dim.red dim 2']])) +
       theme_few() +
       theme(legend.position = "top") + 
-      geom_point(aes(colour = markers), shape = 16) +
+      geom_point(aes(colour = .data[[markers]]), shape = 16) +
       scale_colour_viridis(option = "E")
   } else {
     p <- plotCountsData(singlets, multiplets, markers, log, normalize) |>
