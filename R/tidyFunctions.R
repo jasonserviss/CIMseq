@@ -57,7 +57,7 @@ namedListToTibble <- function(l) {
 
 matrix_to_tibble <- function(data, rowname = "rowname", drop = FALSE) {
   if(!is.matrix(data)) stop("The 'data' argument is not a matrix")
-  if(drop) return(as_tibble(data))
+  if(drop) return(as_tibble(data, .name_repair = "unique_quiet"))
   rn.quo <- enquo(rowname)
   rn <- rownames(data)
   if(is.null(rn)) rn <- 1:nrow(data)
@@ -67,7 +67,7 @@ matrix_to_tibble <- function(data, rowname = "rowname", drop = FALSE) {
   data %>%
   as.data.frame(stringsAsFactors = FALSE) %>%
   add_column(!! quo_name(rn.quo) := rn, .before = 1) %>%
-  as_tibble()
+  as_tibble(.name_repair = "unique_quiet")
 }
 
 #' normalizeVec
