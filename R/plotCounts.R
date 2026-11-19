@@ -304,23 +304,23 @@ setMethod("plotUnsupervisedMarkers", c("CIMseqSinglets", "CIMseqMultiplets"), fu
   if(length(markers) == 1) {
     p <- plotCountsData(singlets, multiplets, markers, log, normalize) %>%
       filter(`Sample type` == "Singlet") %>%
-      ggplot(aes(x = 'dim.red dim 1', y = 'dim.red dim 2')) +
+      ggplot(aes(x = .data[['dim.red dim 1']], y = .data[['dim.red dim 2']])) +
       theme_few() +
       theme(legend.position = "top") + 
       geom_point(aes(colour = markers), shape = 16) +
       scale_colour_viridis(option = "E")
   } else {
-    p <- plotCountsData(singlets, multiplets, markers, log, normalize) %>%
-      filter(`Sample type` == "Singlet") %>%
+    p <- plotCountsData(singlets, multiplets, markers, log, normalize) |>
+      filter(`Sample type` == "Singlet") |>
       full_join(
         coloursFromTargets(pal, getData(singlets, "counts.cpm"), markers),
         by = "Sample"
-      ) %>%
-      ggplot(aes(x = 'dim.red dim 1', y = 'dim.red dim 2')) +
+      ) |>
+      ggplot(aes(x = .data[['dim.red dim 1']], y = .data[['dim.red dim 2']])) +
       theme_few() +
       theme(legend.position = "top") +
       geom_point(colour = "black", shape = 21) +
-      geom_point(aes(colour = 'Colour'), alpha = 0.75, show.legend = TRUE) +
+      geom_point(aes(colour = .data[['Colour']]), alpha = 0.75, show.legend = TRUE) +
       scale_colour_identity(
         "Markers", labels = names(pal), breaks = pal,
         guide = "legend", drop = FALSE
