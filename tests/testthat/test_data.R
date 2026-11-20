@@ -121,13 +121,13 @@ test_that("check that estimateCells outputs the expected result", {
   )
   
   expected2 <- tibble::tibble(
-    frac.ercc = 0,
-    estimatedCellNumber = 1
+    frac.ercc = c("s.NJB00201.G12" = 0),
+    estimatedCellNumber = c("s.NJB00201.G12" = 1)
   )
   
   expected3 <- tibble::tibble(
-    frac.ercc = 0,
-    estimatedCellNumber = 2
+    frac.ercc = c("m.NJB00204.A02" = 0),
+    estimatedCellNumber = c("m.NJB00204.A02" = 2)
   )
   
   #run function

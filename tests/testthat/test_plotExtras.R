@@ -38,7 +38,7 @@ test_that("check that convertToERCC outputs the expected result", {
   output <- convertToERCC(
     ercc$estimatedCellNumber, CIMseqSinglets_test, CIMseqMultiplets_test
   )
-  expect_identical(expected, round(output))
+  expect_identical(expected, round(unname(output)))
 })
 
 test_that("check that processMarkers outputs the expected result", {

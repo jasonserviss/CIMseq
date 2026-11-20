@@ -21,14 +21,33 @@
 
 CIMseqSwarm(singlets, multiplets, ...)
 
-\S4method{CIMseqSwarm}{CIMseqSinglets,CIMseqMultiplets}(singlets,
-  multiplets, maxiter = 10, swarmsize = 150,
-  nSyntheticMultiplets = 200, seed = 11, norm = TRUE,
-  report = FALSE, reportRate = NA, permute = FALSE,
-  singletIdx = NULL, swarmInit = NULL, psoControl = list(), ...)
+\S4method{CIMseqSwarm}{CIMseqSinglets,CIMseqMultiplets}(
+  singlets,
+  multiplets,
+  maxiter = 10,
+  swarmsize = 150,
+  nSyntheticMultiplets = 200,
+  seed = 11,
+  norm = TRUE,
+  report = FALSE,
+  reportRate = NA,
+  permute = FALSE,
+  singletIdx = NULL,
+  swarmInit = NULL,
+  psoControl = list(),
+  ...
+)
 
-\S4method{initialize}{CIMseqSwarm}(.Object, ..., fractions, costs,
-  convergence, stats, singletIdx, arguments)
+\S4method{initialize}{CIMseqSwarm}(
+  .Object,
+  ...,
+  fractions,
+  costs,
+  convergence,
+  stats,
+  singletIdx,
+  arguments
+)
 
 \S4method{show}{CIMseqSwarm}(object)
 }

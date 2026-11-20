@@ -248,7 +248,7 @@ test_that("check that calculateEdgeStats outputs the expected result", {
   output <- CIMseq:::.calculateP(edges, mat)
   
   #test
-  expect_identical(expected, round(output$expected.edges))
+  expect_identical(expected, round(unname(output$expected.edges)))
   expect_identical(output$score, output$weight / output$expected.edges)
   
   ###TEST3####
@@ -300,7 +300,6 @@ test_that("check that getCellsForMultiplet outputs the expected result", {
 #                                                                              #
 ################################################################################
 
-context("calculateCost")
 
 ################################################################################
 ##          ARMADILLO FUNCTIONS TO GENERATE SYNTHETIC MULTIPLETS              ##

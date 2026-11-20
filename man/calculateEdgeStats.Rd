@@ -4,8 +4,7 @@
 \alias{calculateEdgeStats}
 \title{calculateEdgeStats}
 \usage{
-calculateEdgeStats(swarm, singlets, multiplets, theoretical.max = Inf,
-  ...)
+calculateEdgeStats(swarm, singlets, multiplets, theoretical.max = Inf, ...)
 }
 \arguments{
 \item{swarm}{A CIMseqSwarm object.}

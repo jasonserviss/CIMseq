@@ -51,8 +51,12 @@ test_that("check that tidySwarm outputs the expected result", {
     HCT116 = round(c(0, 0, 0)),
     HOS = round(c(0, 1, 0))
   )
+  
   output <- tidySwarm(CIMseqSwarm_test) %>%
     unnest(cols = .data$fractions) %>%
-    mutate_if(is.numeric, round)
+    mutate_if(is.numeric, round) %>%
+    mutate(costs = unname(costs)) %>%
+    mutate(convergence = unname(convergence))
+  
   expect_identical(expected, output)
 })

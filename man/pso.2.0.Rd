@@ -4,8 +4,16 @@
 \alias{pso.2.0}
 \title{pso.2.0}
 \usage{
-pso.2.0(par, fn, gr = NULL, lower = -1, upper = 1,
-  swarmInit = NULL, control = list(), ...)
+pso.2.0(
+  par,
+  fn,
+  gr = NULL,
+  lower = -1,
+  upper = 1,
+  swarmInit = NULL,
+  control = list(),
+  ...
+)
 }
 \arguments{
 \item{par}{numeric; Vector with length defining the dimensionality of the 

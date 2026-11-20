@@ -26,7 +26,7 @@ test_that("check that plotCountsERCC outputs the expected result", {
   output <- plotCountsERCC(CIMseqSinglets_test, CIMseqMultiplets_test)
   
   #test
-  expect_type(output, "list")
+  expect_type(output, "object")
   expect_is(output, c("gg", "ggplot"))
 })
 
@@ -38,7 +38,7 @@ test_that("check that plotCountsMarkers outputs the expected result", {
   output <- plotCountsMarkers(CIMseqSinglets_test, CIMseqMultiplets_test, markers)
   
   #test
-  expect_type(output, "list")
+  expect_type(output, "object")
   expect_is(output, c("gg", "ggplot"))
   expect_error(plotCountsMarkers(CIMseqSinglets_test, CIMseqMultiplets_test, "A"))
 })
@@ -50,7 +50,7 @@ test_that("check that plotUnsupervisedClass outputs the expected result", {
   output <- plotUnsupervisedClass(CIMseqSinglets_test, CIMseqMultiplets_test)
   
   #test
-  expect_type(output, "list")
+  expect_type(output, "object")
   expect_is(output, c("gg", "ggplot"))
 })
 
@@ -63,7 +63,7 @@ test_that("check that plotUnsupervisedMarkers outputs the expected result", {
   )
   
   #test
-  expect_type(output, "list")
+  expect_type(output, "object")
   expect_is(output, c("gg", "ggplot"))
   expect_error(plotUnsupervisedMarkers(
     CIMseqSinglets_test, CIMseqMultiplets_test, markers = NULL
@@ -79,7 +79,7 @@ test_that("check that plotUnsupervisedMarkers outputs the expected result", {
   )
   
   #test
-  expect_type(output, "list")
+  expect_type(output, "object")
   expect_is(output, c("gg", "ggplot"))
 })
 

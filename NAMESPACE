@@ -56,7 +56,6 @@ export(vecToMat)
 exportClasses(CIMseqMultiplets)
 exportClasses(CIMseqSinglets)
 exportClasses(CIMseqSwarm)
-exportClasses(gg)
 exportClasses(ggraph)
 exportMethods("getData<-")
 exportMethods(CIMseqMultiplets)
@@ -73,7 +72,6 @@ exportMethods(getMultipletsForEdge)
 exportMethods(initialize)
 exportMethods(plotCountsERCC)
 exportMethods(plotCountsMarkers)
-exportMethods(plotData)
 exportMethods(plotSwarmCircos)
 exportMethods(plotSwarmGenes)
 exportMethods(plotSwarmGraph)
@@ -90,94 +88,128 @@ import(tibble)
 importFrom(Rcpp,evalCpp)
 importFrom(Rtsne,Rtsne)
 importFrom(S4Vectors,show)
-importFrom(dplyr,"%>%")
-importFrom(dplyr,arrange)
-importFrom(dplyr,bind_cols)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,case_when)
-importFrom(dplyr,desc)
-importFrom(dplyr,distinct)
-importFrom(dplyr,enquo)
-importFrom(dplyr,everything)
-importFrom(dplyr,filter)
-importFrom(dplyr,full_join)
-importFrom(dplyr,group_by)
-importFrom(dplyr,if_else)
-importFrom(dplyr,inner_join)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,mutate_if)
-importFrom(dplyr,n)
-importFrom(dplyr,ntile)
-importFrom(dplyr,pull)
-importFrom(dplyr,quo_name)
-importFrom(dplyr,rename)
-importFrom(dplyr,right_join)
-importFrom(dplyr,select)
-importFrom(dplyr,summarise)
-importFrom(dplyr,summarize)
-importFrom(dplyr,ungroup)
+importFrom(S7,
+  "method<-",
+  class_data.frame,
+  new_S3_class,
+  new_generic
+)
+importFrom(dplyr,
+  "%>%",
+  arrange,
+  bind_cols,
+  bind_rows,
+  case_when,
+  desc,
+  distinct,
+  enquo,
+  everything,
+  filter,
+  full_join,
+  group_by,
+  if_else,
+  inner_join,
+  left_join,
+  mutate,
+  mutate_if,
+  n,
+  ntile,
+  pull,
+  quo_name,
+  rename,
+  right_join,
+  select,
+  summarise,
+  summarize,
+  ungroup
+)
 importFrom(future.apply,future_lapply)
-importFrom(ggplot2,ggplot_build)
-importFrom(ggplot2,ggplot_gtable)
-importFrom(ggthemes,scale_colour_economist)
-importFrom(ggthemes,theme_few)
-importFrom(grDevices,col2rgb)
-importFrom(grDevices,colorRampPalette)
-importFrom(grDevices,rgb)
-importFrom(graphics,frame)
-importFrom(graphics,layout)
-importFrom(graphics,par)
+importFrom(ggplot2,
+  ggplot_build,
+  ggplot_gtable
+)
+importFrom(ggthemes,
+  scale_colour_economist,
+  theme_few
+)
+importFrom(grDevices,
+  col2rgb,
+  colorRampPalette,
+  rgb
+)
+importFrom(graphics,
+  frame,
+  layout,
+  par
+)
 importFrom(gridBase,baseViewports)
 importFrom(igraph,graph_from_data_frame)
-importFrom(matrixStats,colSums2)
-importFrom(matrixStats,rowMaxs)
-importFrom(matrixStats,rowMeans2)
-importFrom(matrixStats,rowSums2)
-importFrom(matrixStats,rowVars)
+importFrom(matrixStats,
+  colSums2,
+  rowMaxs,
+  rowMeans2,
+  rowSums2,
+  rowVars
+)
 importFrom(pso,psoptim)
-importFrom(purrr,flatten)
-importFrom(purrr,map)
-importFrom(purrr,map2)
-importFrom(purrr,map2_dbl)
-importFrom(purrr,map2_int)
-importFrom(purrr,map_dbl)
-importFrom(purrr,map_dfr)
-importFrom(purrr,map_int)
-importFrom(purrr,pmap)
-importFrom(purrr,pmap_chr)
-importFrom(purrr,reduce)
-importFrom(purrr,set_names)
+importFrom(purrr,
+  flatten,
+  map,
+  map2,
+  map2_dbl,
+  map2_int,
+  map_dbl,
+  map_dfr,
+  map_int,
+  pmap,
+  pmap_chr,
+  reduce,
+  set_names
+)
 importFrom(readr,parse_factor)
-importFrom(rlang,"!!")
-importFrom(rlang,":=")
-importFrom(rlang,.data)
-importFrom(stats,as.dist)
-importFrom(stats,cor)
-importFrom(stats,dpois)
-importFrom(stats,median)
-importFrom(stats,optim)
-importFrom(stats,p.adjust)
-importFrom(stats,ppois)
-importFrom(stats,rnorm)
-importFrom(stats,runif)
-importFrom(stats,setNames)
+importFrom(rlang,
+  "!!",
+  ":=",
+  .data
+)
+importFrom(stats,
+  as.dist,
+  cor,
+  dpois,
+  median,
+  optim,
+  p.adjust,
+  ppois,
+  rnorm,
+  runif,
+  setNames
+)
 importFrom(stringr,str_replace)
-importFrom(tibble,add_column)
-importFrom(tibble,as_tibble)
-importFrom(tibble,rownames_to_column)
-importFrom(tibble,tibble)
-importFrom(tidygraph,activate)
-importFrom(tidygraph,as_tbl_graph)
-importFrom(tidyr,gather)
-importFrom(tidyr,nest)
-importFrom(tidyr,replace_na)
-importFrom(tidyr,separate)
-importFrom(tidyr,spread)
-importFrom(tidyr,unite)
-importFrom(tidyr,unnest)
-importFrom(utils,combn)
-importFrom(utils,head)
-importFrom(viridis,scale_colour_viridis)
-importFrom(viridis,viridis)
+importFrom(tibble,
+  add_column,
+  as_tibble,
+  rownames_to_column,
+  tibble
+)
+importFrom(tidygraph,
+  activate,
+  as_tbl_graph
+)
+importFrom(tidyr,
+  gather,
+  nest,
+  replace_na,
+  separate,
+  spread,
+  unite,
+  unnest
+)
+importFrom(utils,
+  combn,
+  head
+)
+importFrom(viridis,
+  scale_colour_viridis,
+  viridis
+)
 useDynLib(CIMseq)

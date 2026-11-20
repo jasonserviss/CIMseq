@@ -7,7 +7,7 @@ NULL
 #'
 #' @name plotData
 #' @rdname plotData
-#' @param plot A ggplot object of class "gg" "ggplot".
+#' @param plot A ggplot object of class "ggplot".
 #' @param ... additional arguments to pass on.
 #' @return A tibble containing the plot data.
 #' @author Jason T. Serviss
@@ -20,52 +20,57 @@ NULL
 
 #' @rdname plotData
 #' @export
+#' @importFrom S7 new_generic
 
-setGeneric("plotData", function(
+plotData <-  new_generic("plotData", "plot")
+
+#' @rdname plotData
+#' @export
+#' @importFrom tibble as_tibble
+#' @importFrom S7 method<-
+
+method(plotData, ggplot2::class_ggplot) <- function(
+plot,
+...
+){
+  as_tibble(plot@data)
+}
+
+#' @rdname plotData
+#' @export
+#' @importFrom tibble as_tibble
+#' @importFrom S7 class_data.frame
+
+method(plotData, class_data.frame) <- function(
   plot,
   ...
 ){
-  standardGeneric("plotData")
-})
-
-#' @rdname plotData
-#' @export
-#' @importFrom tibble as_tibble
-
-# setMethod("plotData", "gg", function(
-#   plot, ...
-# ){
-#   as_tibble(plot[1])
-# })
-
-#google: setmethod s4 generic for a s7 ggplot2 object in package
-S7::S4_register(ggplot2::class_ggplot)
-S7::method(plotData, ggplot2::class_ggplot) <- function(
-    plot, ...
-){
-  as_tibble(plot$data)
+    as_tibble(plot)
 }
 
+#setMethod("plotData", "data.frame", function(
+#  plot, ...
+#){
+#  as_tibble(plot)
+#})
 
 #' @rdname plotData
 #' @export
-#' @importFrom tibble as_tibble
+#' @importFrom S7 new_S3_class
 
-setMethod("plotData", "data.frame", function(
-  plot, ...
+method(plotData,  new_S3_class("ggraph")) <- function(
+  plot,
+  ...
 ){
-  as_tibble(plot)
-})
+    as_tibble(plot@data)
+}
 
-#' @rdname plotData
-#' @export
-
-setMethod("plotData", "ggraph", function(
-  plot, ...
-){
-  #attr(plot[[1]], "graph")
-  plot$data
-})
+#setMethod("plotData", "ggraph", function(
+#  plot, ...
+#){
+#  #attr(plot[[1]], "graph")
+#  plot$data
+#})
 
 #' convertToERCC
 #'
@@ -332,7 +337,7 @@ NULL
 #' @rdname g_legend
 #' @importFrom ggplot2 ggplot_gtable ggplot_build
 
-g_legend<-function(a.gplot){
+g_legend <- function(a.gplot){
   tmp <- ggplot_gtable(ggplot_build(a.gplot))
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
   legend <- tmp$grobs[[leg]]

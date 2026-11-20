@@ -129,7 +129,7 @@ setMethod("CIMseqSwarm", c("CIMseqSinglets", "CIMseqMultiplets"), function(
   
   #deconvolution
   opt.out <- future_lapply(
-    X = 1:to, FUN = function(i) {
+    X = 1:to, future.seed = seed, FUN = function(i) {
       .optim.fun(
         i, fractions = fractions, multiplets = mul,
         singletSubset = t.singletSubset, n = nSyntheticMultiplets,
@@ -259,7 +259,7 @@ NULL
 #' @export
 
 appropriateSinglets <- function(
-  singlets, idx, features = NULL
+  singlets, idx, features = NULL, ...
 ){
   classes <- getData(singlets, "classification")
   sngCPM <- getData(singlets, "counts.cpm")
@@ -514,6 +514,7 @@ calculateEdgeStats <- function(
 #' for all multiplets.
 #' @param fractions matrix; A matrix of fractions. By default the fractions in 
 #' the CIMseqSwarm object are used.
+#' @param seed provided to future.seed arg in future_lapply
 #' @param ... additional arguments to pass on
 #' @return Residuals (add more description).
 #' @author Jason T. Serviss
@@ -529,7 +530,7 @@ NULL
 #' @importFrom tidyr gather
 
 calcResiduals <- function(
-  singlets, multiplets, swarm, include = NULL, fractions = NULL, ...
+  singlets, multiplets, swarm, include = NULL, fractions = NULL, seed = 11, ...
 ){
   residual <- gene <- NULL
   if(is.null(fractions)) {
@@ -558,7 +559,7 @@ calcResiduals <- function(
   )
   
   future_lapply(
-    X = 1:ncol(multiplets), FUN = function(i) {
+    X = 1:ncol(multiplets), future.seed = seed, FUN = function(i) {
       as.numeric(frac[rownames(frac) == colnames(multiplets)[i], ]) %>%
         adjustAccordingToFractions(., sm) %>%
         multipletSums() %>%
@@ -773,14 +774,16 @@ setGeneric("getCellsForMultiplet", function(
 setMethod("getCellsForMultiplet", "CIMseqSwarm", function(
   swarm, singlets, multiplets, multipletName = NULL, drop = TRUE, ...
 ){
-  if(is.null(multipletName)) multipletName <- colnames(getData(multiplets, "counts"))
+  if(is.null(multipletName)) {
+    multipletName <- colnames(getData(multiplets, "counts"))
+  }
   
   getEdgesForMultiplet(
     swarm, singlets, multiplets, multipletName, drop = drop
   ) %>%
     mutate(cells = map2(.data$from, .data$to, ~c(.x, .y))) %>%
     select(-.data$from, -.data$to) %>%
-    unnest(cols = c(.data$cells)) %>%
+    unnest(cols = "cells") %>%
     distinct()
 })
 

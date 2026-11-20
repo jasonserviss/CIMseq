@@ -65,11 +65,11 @@ setMethod("plotCountsData", c("CIMseqSinglets", "CIMseqMultiplets"), function(
     by = "Sample"
   ) %>%
   rename(
-    `Estimated cell number` = .data$estimatedCellNumber,
-    `Sample type` = .data$sampleType,
-    `Fraction ERCC` = .data$frac.ercc,
-    `dim.red dim 1` = .data$V1,
-    `dim.red dim 2` = .data$V2
+    `Estimated cell number` = "estimatedCellNumber",
+    `Sample type` = "sampleType",
+    `Fraction ERCC` = "frac.ercc",
+    `dim.red dim 1` = "V1",
+    `dim.red dim 2` = "V2"
   )
 })
 

@@ -9,6 +9,6 @@ test_that("check that plotSwarmGraph outputs the expected result", {
   )
   
   #test
-  expect_type(output, "list")
+  expect_type(output, "object")
   expect_is(output, c("gg", "ggplot"))
 })

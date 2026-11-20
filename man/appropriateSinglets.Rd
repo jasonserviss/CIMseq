@@ -4,7 +4,7 @@
 \alias{appropriateSinglets}
 \title{appropriateSinglets}
 \usage{
-appropriateSinglets(singlets, idx, features = NULL)
+appropriateSinglets(singlets, idx, features = NULL, ...)
 }
 \arguments{
 \item{singlets}{A CIMseqSinglets object.}

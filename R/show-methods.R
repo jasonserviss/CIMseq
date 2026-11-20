@@ -63,7 +63,7 @@ setMethod("show", "CIMseqSwarm", function(object){
 ################################################################################
 
 .showBasics <- function(obj){
-  if(class(obj) == "call") {return("")}
+  if(is.call(obj)) {return("")}
   if(length(obj) <= 5) {
     cat(head(obj))
     cat("\n-----------\n\n")

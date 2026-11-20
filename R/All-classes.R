@@ -64,7 +64,7 @@ setGeneric("getData<-", function(x, n, value){
 #' @export
 
 setMethod("getData<-", "CIMseqSinglets", function(x, n = NULL, value){
-  if(class(n) == "character" & .hasSlot(x, n)){
+  if(is.character(n) & .hasSlot(x, n)){
     .checkCIMseqSingletsReplacement(x, n, value)
     slot(x, n) <- value
     return(x)
@@ -169,7 +169,7 @@ setMethod("getData", "CIMseqMultiplets", function(x, n = NULL){
 #' @export
 
 setMethod("getData<-", "CIMseqMultiplets", function(x, n = NULL, value){
-  if(class(n) == "character" & .hasSlot(x, n)){
+  if(is.character(n) & .hasSlot(x, n)){
     .checkCIMseqMultipletsReplacement(x, n, value)
     slot(x, n) <- value
     return(x)
@@ -245,7 +245,7 @@ setClass("CIMseqSwarm", representation(
 #' @export
 
 setMethod("getData", "CIMseqSwarm", function(x, n = NULL){
-  if(class(n) == "character" & .hasSlot(x, n)){
+  if(is.character(n) & .hasSlot(x, n)){
     slot(x, n)
   }
 })
@@ -332,14 +332,7 @@ setMethod("filterSwarm", c("CIMseqSwarm"), function(x, subset){
 #                                                                              #
 ################################################################################
 
-#' "gg" class
-#'
-#' @name gg-class
-#' @aliases gg
-#' @family gg
-#'
-#' @exportClass gg
-setOldClass("gg")
+
 
 #' "ggraph" class
 #'

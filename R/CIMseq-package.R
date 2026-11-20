@@ -7,7 +7,6 @@
 #'
 #' @name CIMseq-package
 #' @aliases CIMseq-package CIMseq
-#' @docType package
 #' @author Author: Jason T. Serviss
 #' @references Reference to published application note (work in progress)
 #' @keywords package
@@ -17,6 +16,7 @@
 #' @useDynLib CIMseq
 #' @importFrom Rcpp evalCpp
 #' @exportPattern "^[[:alpha:]]+"
+"_PACKAGE"
 NULL
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines

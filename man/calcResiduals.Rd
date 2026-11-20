@@ -4,8 +4,15 @@
 \alias{calcResiduals}
 \title{calcResiduals}
 \usage{
-calcResiduals(singlets, multiplets, swarm, include = NULL,
-  fractions = NULL, ...)
+calcResiduals(
+  singlets,
+  multiplets,
+  swarm,
+  include = NULL,
+  fractions = NULL,
+  seed = 11,
+  ...
+)
 }
 \arguments{
 \item{singlets}{A CIMseqSinglets object.}
@@ -20,6 +27,8 @@ for all multiplets.}
 
 \item{fractions}{matrix; A matrix of fractions. By default the fractions in 
 the CIMseqSwarm object are used.}
+
+\item{seed}{provided to future.seed arg in future_lapply}
 
 \item{...}{additional arguments to pass on}
 }

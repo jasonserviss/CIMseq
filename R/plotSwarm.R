@@ -548,7 +548,7 @@ setMethod("plotSwarmGenes", "CIMseqSwarm", function(
     #this just facilitates the histogram legend
     geom_line(
       data = data.frame(x = c(0, 0), y = c(0, 0)),
-      aes(x, y, linetype = "Synthetic multiplet values  ")
+      aes(.data[["x"]], .data[["y"]], linetype = "Synthetic multiplet values  ")
     ) +
     #poisson distribution of individual synthetic multiplets
     geom_line(
